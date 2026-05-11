@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="A small Mother's Day envelope surprise with randomized storybook cards."
+    >
+    <meta name="theme-color" content="#ffd7df">
+    <title>Mother's Day Surprise</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="page-shell" id="pageShell" data-state="closed" aria-live="polite">
+      <section class="intro-panel" id="introPanel">
+        <p class="eyebrow">A little envelope of love</p>
+        <h1>Mother's Day surprise</h1>
+        <p class="intro-copy">Tap the envelope and let a tiny bit of magic unfold.</p>
+
+        <button
+          class="envelope-button"
+          id="envelopeButton"
+          type="button"
+          aria-label="Open Mother's Day surprise"
+          aria-describedby="openHint"
+        >
+          <span class="envelope-stage" aria-hidden="true">
+            <span class="letter-peek">
+              <span class="letter-line letter-line-short"></span>
+              <span class="letter-line"></span>
+            </span>
+            <span class="envelope">
+              <span class="envelope-back"></span>
+              <span class="envelope-card"></span>
+              <span class="flap flap-top"></span>
+              <span class="flap flap-left"></span>
+              <span class="flap flap-right"></span>
+              <span class="flap flap-bottom"></span>
+              <span class="seal">
+                <span class="seal-heart"></span>
+              </span>
+            </span>
+          </span>
+        </button>
+
+        <p class="open-hint" id="openHint">Open with a tap, click, or keyboard.</p>
+      </section>
+
+      <section class="reveal-panel" id="revealPanel" aria-hidden="true">
+        <div class="reveal-card" id="revealCard">
+          <div class="card-meta">
+            <p class="eyebrow" id="recipientLine">For someone wonderful</p>
+            <h2 id="cardTitle">#1 The SuperMom</h2>
+          </div>
+
+          <figure class="image-frame">
+            <img
+              id="cardImage"
+              src="./assets/images/01-the-supermom.webp"
+              alt="Pastel mock illustration of mother and child as a superhero duo"
+              width="1200"
+              height="900"
+              decoding="async"
+            >
+          </figure>
+
+          <p class="message" id="messageText">
+            Happy Mother's Day. Your love, patience, strength, and tenderness are
+            seen and cherished. Today is a small reminder of how deeply you are
+            loved.
+          </p>
+
+          <button class="primary-action" id="resetButton" type="button">
+            <span aria-hidden="true">&#9825;</span>
+            Open another
+          </button>
+        </div>
+      </section>
+
+      <div class="particle-layer" id="particleLayer" aria-hidden="true"></div>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
