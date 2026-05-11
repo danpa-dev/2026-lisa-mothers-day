@@ -173,16 +173,16 @@ h2 {
   box-shadow: var(--focus);
 }
 
-.envelope-button:disabled {
+.envelope-button[aria-disabled="true"] {
   cursor: default;
 }
 
-.envelope-button:not(:disabled):hover .envelope-stage {
+.page-shell[data-state="closed"] .envelope-button:hover .envelope-stage {
   transform: translateY(-8px) rotate(-1deg);
   filter: drop-shadow(0 30px 34px rgba(124, 59, 83, 0.25));
 }
 
-.envelope-button:not(:disabled):active .envelope-stage {
+.page-shell[data-state="closed"] .envelope-button:active .envelope-stage {
   transform: translateY(-2px) scale(0.99);
 }
 
@@ -201,6 +201,7 @@ h2 {
 .envelope-button.is-opening .envelope-stage,
 .envelope-button.is-open .envelope-stage {
   animation: none;
+  transform: none;
 }
 
 .envelope {
@@ -208,7 +209,6 @@ h2 {
   inset: 22% 5% 9%;
   z-index: 2;
   border-radius: 20px;
-  transform-style: preserve-3d;
 }
 
 .envelope-back {
@@ -258,7 +258,7 @@ h2 {
 .flap-top {
   top: 0;
   left: 0;
-  z-index: 4;
+  z-index: 3;
   width: 100%;
   height: 58%;
   clip-path: polygon(0 0, 100% 0, 50% 100%);
@@ -267,12 +267,12 @@ h2 {
     linear-gradient(180deg, rgba(255, 255, 255, 0.26), transparent 55%),
     linear-gradient(135deg, #ffb1c1, #f47899);
   transform-origin: 50% 0;
-  transition: transform 620ms cubic-bezier(0.2, 0.82, 0.25, 1);
+  transition: transform 620ms cubic-bezier(0.22, 0.74, 0.28, 1);
 }
 
 .envelope-button.is-opening .flap-top,
 .envelope-button.is-open .flap-top {
-  transform: rotateX(178deg);
+  transform: translateY(-2px) scaleY(-1);
 }
 
 .flap-left {
@@ -524,10 +524,6 @@ h2 {
   animation: revealIn 560ms cubic-bezier(0.2, 0.82, 0.24, 1) both;
 }
 
-.variant-stampWiggle .seal {
-  animation: stampWiggle 720ms cubic-bezier(0.25, 0.9, 0.32, 1) both;
-}
-
 @keyframes envelopePulse {
   0%,
   100% {
@@ -548,25 +544,6 @@ h2 {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes stampWiggle {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) rotate(0deg) scale(1);
-  }
-
-  20% {
-    transform: translate(-50%, -50%) rotate(-10deg) scale(1.06);
-  }
-
-  42% {
-    transform: translate(-50%, -50%) rotate(9deg) scale(1.02);
-  }
-
-  66% {
-    transform: translate(-50%, -50%) rotate(-5deg) scale(1.04);
   }
 }
 

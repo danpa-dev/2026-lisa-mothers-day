@@ -67,14 +67,6 @@ const copy = {
     "Happy Mother's Day. Your love, patience, strength, and tenderness are seen and cherished. Today is a small reminder of how deeply you are loved."
 };
 
-const animationVariants = [
-  "flutter",
-  "sparklePop",
-  "heartBurst",
-  "stampWiggle",
-  "paperFloat"
-];
-
 const introPanel = document.querySelector("#introPanel");
 const revealPanel = document.querySelector("#revealPanel");
 const revealCard = document.querySelector("#revealCard");
@@ -93,7 +85,8 @@ let isAnimating = false;
 
 recipientLine.textContent = copy.recipientLine;
 messageText.textContent = copy.message;
-resetButton.disabled = true;
+envelopeButton.setAttribute("aria-disabled", "false");
+resetButton.setAttribute("aria-disabled", "true");
 
 function setPanelInert(panel, isInert) {
   panel.inert = isInert;
@@ -110,10 +103,6 @@ function pickCard() {
   const selectedCard = pickRandom(availableCards);
   previousCardId = selectedCard.id;
   return selectedCard;
-}
-
-function pickAnimation() {
-  return pickRandom(animationVariants);
 }
 
 function wait(ms) {
@@ -133,12 +122,6 @@ function preloadImage(src) {
 
 function clearParticles() {
   particleLayer.replaceChildren();
-}
-
-function removeVariantClasses() {
-  animationVariants.forEach((variant) => {
-    envelopeButton.classList.remove(`variant-${variant}`);
-  });
 }
 
 function setEnvelopeState(state) {
@@ -164,6 +147,17 @@ function renderCard(card) {
   cardImage.alt = card.alt;
 }
 
+const particlePattern = [
+  { type: "heart", x: 46, y: 48, dx: -118, dy: -124, color: "#ff7d9a", size: 15 },
+  { type: "sparkle", x: 50, y: 46, dx: -62, dy: -142, color: "#ffc65f", size: 13 },
+  { type: "sparkle", x: 54, y: 48, dx: 72, dy: -138, color: "#8dd9c2", size: 12 },
+  { type: "heart", x: 50, y: 52, dx: 116, dy: -94, color: "#ff9ab1", size: 13 },
+  { type: "sparkle", x: 47, y: 52, dx: -98, dy: -58, color: "#9ecbff", size: 11 },
+  { type: "sparkle", x: 53, y: 53, dx: 104, dy: -46, color: "#c8b8ff", size: 12 },
+  { type: "heart", x: 49, y: 50, dx: -34, dy: -170, color: "#ff7d9a", size: 11 },
+  { type: "sparkle", x: 51, y: 51, dx: 32, dy: -166, color: "#ffc65f", size: 10 }
+];
+
 function makeParticle(type, x, y, color, size) {
   const particle = document.createElement("span");
   particle.className = `particle ${type}`;
@@ -174,73 +168,57 @@ function makeParticle(type, x, y, color, size) {
   return particle;
 }
 
-function burstParticles(variant) {
+function burstParticles() {
   if (reducedMotionQuery.matches) {
     return Promise.resolve();
   }
 
   clearParticles();
 
-  const isHeartBurst = variant === "heartBurst";
-  const count = isHeartBurst ? 18 : 22;
-  const colors = ["#ff7d9a", "#ffc65f", "#8dd9c2", "#9ecbff", "#c8b8ff"];
-  const animations = [];
-
-  for (let index = 0; index < count; index += 1) {
-    const angle = (Math.PI * 2 * index) / count + (Math.random() - 0.5) * 0.45;
-    const distance = 110 + Math.random() * 125;
-    const drift = 22 + Math.random() * 34;
-    const type = isHeartBurst || index % 5 === 0 ? "heart" : "sparkle";
+  const animations = particlePattern.map((config, index) => {
     const particle = makeParticle(
-      type,
-      50 + (Math.random() - 0.5) * 9,
-      51 + (Math.random() - 0.5) * 8,
-      pickRandom(colors),
-      type === "heart" ? 10 + Math.random() * 8 : 8 + Math.random() * 9
+      config.type,
+      config.x,
+      config.y,
+      config.color,
+      config.size
     );
     particleLayer.append(particle);
 
-    animations.push(
-      particle.animate(
-        [
-          {
-            opacity: 0,
-            transform:
-              type === "heart"
-                ? "translate(-50%, -50%) rotate(-45deg) scale(0.25)"
-                : "translate(-50%, -50%) rotate(0deg) scale(0.25)"
-          },
-          {
-            opacity: 0.95,
-            offset: 0.16,
-            transform:
-              type === "heart"
-                ? `translate(calc(-50% + ${Math.cos(angle) * drift}px), calc(-50% + ${Math.sin(angle) * drift}px)) rotate(-45deg) scale(1)`
-                : `translate(calc(-50% + ${Math.cos(angle) * drift}px), calc(-50% + ${Math.sin(angle) * drift}px)) rotate(35deg) scale(1)`
-          },
-          {
-            opacity: 0,
-            transform:
-              type === "heart"
-                ? `translate(calc(-50% + ${Math.cos(angle) * distance}px), calc(-50% + ${Math.sin(angle) * distance - 56}px)) rotate(-45deg) scale(0.72)`
-                : `translate(calc(-50% + ${Math.cos(angle) * distance}px), calc(-50% + ${Math.sin(angle) * distance - 28}px)) rotate(120deg) scale(0.55)`
-          }
-        ],
-        {
-          duration: 760 + Math.random() * 260,
-          delay: Math.random() * 90,
-          easing: "cubic-bezier(0.2, 0.78, 0.22, 1)",
-          fill: "forwards"
-        }
-      ).finished.catch(() => {})
-    );
-  }
+    const driftX = config.dx * 0.32;
+    const driftY = config.dy * 0.32;
+    const startTransform =
+      config.type === "heart"
+        ? "translate(-50%, -50%) rotate(-45deg) scale(0.25)"
+        : "translate(-50%, -50%) rotate(0deg) scale(0.25)";
+    const midTransform =
+      config.type === "heart"
+        ? `translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) rotate(-45deg) scale(1)`
+        : `translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) rotate(35deg) scale(1)`;
+    const endTransform =
+      config.type === "heart"
+        ? `translate(calc(-50% + ${config.dx}px), calc(-50% + ${config.dy}px)) rotate(-45deg) scale(0.72)`
+        : `translate(calc(-50% + ${config.dx}px), calc(-50% + ${config.dy}px)) rotate(120deg) scale(0.55)`;
+
+    return particle.animate(
+      [
+        { opacity: 0, transform: startTransform },
+        { opacity: 0.95, offset: 0.18, transform: midTransform },
+        { opacity: 0, transform: endTransform }
+      ],
+      {
+        duration: 820,
+        delay: index * 18,
+        easing: "cubic-bezier(0.2, 0.78, 0.22, 1)",
+        fill: "forwards"
+      }
+    ).finished.catch(() => {});
+  });
 
   return Promise.all(animations).then(clearParticles);
 }
 
-async function playOpeningAnimation(variant) {
-  removeVariantClasses();
+async function playOpeningAnimation() {
   clearParticles();
 
   if (reducedMotionQuery.matches) {
@@ -249,15 +227,8 @@ async function playOpeningAnimation(variant) {
     return;
   }
 
-  envelopeButton.classList.add(`variant-${variant}`);
   setEnvelopeState("opening");
-
-  if (variant === "sparklePop" || variant === "heartBurst") {
-    await Promise.all([wait(900), burstParticles(variant)]);
-  } else {
-    await wait(920);
-  }
-
+  await Promise.all([wait(760), burstParticles()]);
   setEnvelopeState("open");
 }
 
@@ -269,17 +240,16 @@ async function openEnvelope({ restoreFocus = false } = {}) {
   isAnimating = true;
   envelopeButton.blur();
   setAppState("opening");
-  envelopeButton.disabled = true;
-  resetButton.disabled = true;
+  envelopeButton.setAttribute("aria-disabled", "true");
+  resetButton.setAttribute("aria-disabled", "true");
 
   const selectedCard = pickCard();
-  const selectedVariant = pickAnimation();
   const imageReady = preloadImage(selectedCard.src);
 
   try {
     await imageReady;
     renderCard(selectedCard);
-    await playOpeningAnimation(selectedVariant);
+    await playOpeningAnimation();
 
     setAppState("revealed");
     revealCard.classList.remove("is-fading-in");
@@ -287,8 +257,7 @@ async function openEnvelope({ restoreFocus = false } = {}) {
     revealCard.classList.add("is-fading-in");
 
     await wait(reducedMotionQuery.matches ? 80 : 520);
-    removeVariantClasses();
-    resetButton.disabled = false;
+    resetButton.setAttribute("aria-disabled", "false");
     if (restoreFocus) {
       resetButton.focus({ preventScroll: true });
     }
@@ -304,9 +273,8 @@ async function resetExperience({ restoreFocus = false } = {}) {
 
   isAnimating = true;
   resetButton.blur();
-  resetButton.disabled = true;
+  resetButton.setAttribute("aria-disabled", "true");
   clearParticles();
-  removeVariantClasses();
 
   revealCard.classList.remove("is-fading-in");
   setAppState("closing");
@@ -314,15 +282,15 @@ async function resetExperience({ restoreFocus = false } = {}) {
   setEnvelopeState("closed");
   await wait(reducedMotionQuery.matches ? 80 : 640);
   setAppState("closed");
-  envelopeButton.disabled = false;
+  envelopeButton.setAttribute("aria-disabled", "false");
   if (restoreFocus) {
     envelopeButton.focus({ preventScroll: true });
   }
   isAnimating = false;
 }
 
-envelopeButton.addEventListener("click", openEnvelope);
-resetButton.addEventListener("click", resetExperience);
+envelopeButton.addEventListener("click", () => openEnvelope());
+resetButton.addEventListener("click", () => resetExperience());
 
 envelopeButton.addEventListener("keydown", (event) => {
   if (event.key === "Enter" || event.key === " ") {
