@@ -3,38 +3,45 @@ const cards = [
     id: 1,
     displayName: "#1 The Storytime Reader",
     src: "./assets/images/01-the-storytime-reader.webp",
-    alt: "Mother reading with her child"
+    alt: "Mother reading with her child",
+    message:
+      "For reading to Keaton the same truck book a million times, and making sure that his brain is nice and wrinkly 🧠. And for always challenging us.. to think."
   },
   {
     id: 2,
     displayName: "#2 The Lifter",
     src: "./assets/images/02-the-lifter.webp",
-    alt: "Mother lifting her child"
+    alt: "Mother lifting her child",
+    message:
+      "For lifting Keaton whenever he wants, even when he's getting real chonky. And for lifting up others around you by Facetiming to check in, being their advocate, writing handwritten letters with no AI, and always planning fun things to do."
   },
   {
     id: 3,
     displayName: "#3 The Lifeguard",
     src: "./assets/images/03-the-lifeguard.webp",
-    alt: "Mother and child at the water"
+    alt: "Mother and child at the water",
+    message:
+      "For taking Keaton out for his splish splash! Giving him new experiences and challenging him to grow in new ways."
   },
   {
     id: 4,
     displayName: "#4 The Bedrock",
     src: "./assets/images/04-the-bedrock.webp",
-    alt: "Mother and child resting together"
+    alt: "Mother and child resting together",
+    message:
+      "For being the unsung hero with many hats: private chef, housekeeper, chauffer. And for being the dependably loving, fun one in the relationship (don't tell Kevin haha).<br><br>PS hi kevin :)"
   },
   {
     id: 5,
     displayName: "#5 The Netflix Lounger",
     src: "./assets/images/05-the-netflix-lounger.webp",
-    alt: "Mother and child lounging together"
+    alt: "Mother and child lounging together",
+    message: "For always being chill and Keaton's safe space."
   }
 ];
 
 const copy = {
-  recipientLine: "For someone wonderful",
-  message:
-    "Happy Mother's Day. Your love, patience, strength, and tenderness are seen and cherished. Today is a small reminder of how deeply you are loved."
+  recipientLine: "Reason:"
 };
 
 const introPanel = document.querySelector("#introPanel");
@@ -54,7 +61,7 @@ let previousCardId = null;
 let isAnimating = false;
 
 recipientLine.textContent = copy.recipientLine;
-messageText.textContent = copy.message;
+messageText.innerHTML = cards[0].message;
 envelopeButton.setAttribute("aria-disabled", "false");
 resetButton.setAttribute("aria-disabled", "true");
 
@@ -115,6 +122,7 @@ function renderCard(card) {
   cardTitle.textContent = card.displayName;
   cardImage.src = card.src;
   cardImage.alt = card.alt;
+  messageText.innerHTML = card.message;
 }
 
 const particlePattern = [
@@ -182,7 +190,7 @@ function burstParticles() {
         easing: "cubic-bezier(0.2, 0.78, 0.22, 1)",
         fill: "forwards"
       }
-    ).finished.catch(() => {});
+    ).finished.catch(() => { });
   });
 
   return Promise.all(animations).then(clearParticles);

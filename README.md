@@ -22,8 +22,7 @@ Update the `copy` object near the top of `script.js`:
 
 ```js
 const copy = {
-  recipientLine: "For someone wonderful",
-  message: "Happy Mother's Day..."
+  recipientLine: "Reason:"
 };
 ```
 
