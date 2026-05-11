@@ -2,24 +2,19 @@
 
 A tiny static Mother's Day microsite designed for GitHub Pages.
 
-## Replace the mock images
+## Images
 
-The mock WebP files live in `assets/images/` and already use the final filenames. Replace any file with your finished artwork at the same path:
+The site uses five optimized WebP images in `assets/images/`:
 
 ```text
-assets/images/01-the-supermom.webp
-assets/images/02-snuggle-squad.webp
-assets/images/03-breakfast-boss.webp
-assets/images/04-bedtime-hero.webp
-assets/images/05-adventure-duo.webp
-assets/images/06-the-comfort-queen.webp
-assets/images/07-little-shadow.webp
-assets/images/08-sunshine-mama.webp
-assets/images/09-magic-hug.webp
-assets/images/10-forever-team.webp
+assets/images/01-the-storytime-reader.webp
+assets/images/02-the-lifter.webp
+assets/images/03-the-lifeguard.webp
+assets/images/04-the-bedrock.webp
+assets/images/05-the-netflix-lounger.webp
 ```
 
-Recommended final image size: `1200x900` or another `4:3` image. WebP works best for GitHub Pages file size.
+Card names, paths, and alt text are in the `cards` manifest near the top of `script.js`.
 
 ## Edit copy
 
@@ -31,8 +26,6 @@ const copy = {
   message: "Happy Mother's Day..."
 };
 ```
-
-Card names, paths, and alt text are in the `cards` manifest in the same file.
 
 ## Publish
 

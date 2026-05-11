@@ -1,63 +1,33 @@
 const cards = [
   {
     id: 1,
-    displayName: "#1 The SuperMom",
-    src: "./assets/images/01-the-supermom.webp",
-    alt: "Pastel mock illustration of mother and child as a superhero duo"
+    displayName: "#1 The Storytime Reader",
+    src: "./assets/images/01-the-storytime-reader.webp",
+    alt: "Mother reading with her child"
   },
   {
     id: 2,
-    displayName: "#2 Snuggle Squad",
-    src: "./assets/images/02-snuggle-squad.webp",
-    alt: "Pastel mock illustration of mother and child cuddling together"
+    displayName: "#2 The Lifter",
+    src: "./assets/images/02-the-lifter.webp",
+    alt: "Mother lifting her child"
   },
   {
     id: 3,
-    displayName: "#3 Breakfast Boss",
-    src: "./assets/images/03-breakfast-boss.webp",
-    alt: "Pastel mock illustration of mother and child making breakfast"
+    displayName: "#3 The Lifeguard",
+    src: "./assets/images/03-the-lifeguard.webp",
+    alt: "Mother and child at the water"
   },
   {
     id: 4,
-    displayName: "#4 Bedtime Hero",
-    src: "./assets/images/04-bedtime-hero.webp",
-    alt: "Pastel mock illustration of mother reading a bedtime story to her child"
+    displayName: "#4 The Bedrock",
+    src: "./assets/images/04-the-bedrock.webp",
+    alt: "Mother and child resting together"
   },
   {
     id: 5,
-    displayName: "#5 Adventure Duo",
-    src: "./assets/images/05-adventure-duo.webp",
-    alt: "Pastel mock illustration of mother and child on a small adventure"
-  },
-  {
-    id: 6,
-    displayName: "#6 The Comfort Queen",
-    src: "./assets/images/06-the-comfort-queen.webp",
-    alt: "Pastel mock illustration of mother comforting her child"
-  },
-  {
-    id: 7,
-    displayName: "#7 Little Shadow",
-    src: "./assets/images/07-little-shadow.webp",
-    alt: "Pastel mock illustration of child happily following mother"
-  },
-  {
-    id: 8,
-    displayName: "#8 Sunshine Mama",
-    src: "./assets/images/08-sunshine-mama.webp",
-    alt: "Pastel mock illustration of mother and child in sunshine"
-  },
-  {
-    id: 9,
-    displayName: "#9 Magic Hug",
-    src: "./assets/images/09-magic-hug.webp",
-    alt: "Pastel mock illustration of mother and child sharing a magical hug"
-  },
-  {
-    id: 10,
-    displayName: "#10 Forever Team",
-    src: "./assets/images/10-forever-team.webp",
-    alt: "Pastel mock illustration of mother and child standing together as a team"
+    displayName: "#5 The Netflix Lounger",
+    src: "./assets/images/05-the-netflix-lounger.webp",
+    alt: "Mother and child lounging together"
   }
 ];
 
